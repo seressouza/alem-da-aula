@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A1A4A">
+<meta name="description" content="Trilha de aprendizagem da aula Da admissão à alta: fisioterapia no paciente cardíaco cirúrgico.">
+<title>Além da Aula · Cirurgia Cardíaca</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --navy:#0A1A4A; --navy2:#13286B; --cream:#F6F3EC; --paper:#FFFDF8; --ink:#14213D;
+  --muted:#5C6870; --line:#E2DCCD; --rust:#C2410C; --coral:#E4572E; --cyan:#24B5EB; --blue:#0B5FA5;
+  --ok:#1F6B35; --okbg:#E3F1E6; --bad:#B03A0A; --badbg:#FDECE2; --warnbg:#FFF6E0;
+  --r:16px;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink)}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+a{color:var(--blue)}
+button{font:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header.top{background:var(--navy);color:var(--cream);padding:calc(14px + env(safe-area-inset-top)) 0 14px;position:sticky;top:0;z-index:10}
+header.top .wrap{display:flex;align-items:center;gap:12px}
+header.top .back{background:none;border:0;color:var(--cream);font-size:22px;padding:4px 8px 4px 0;cursor:pointer;line-height:1}
+header.top .title{font-weight:700;font-size:16px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header.top .prog{font-size:13px;color:#C5D2D9;white-space:nowrap}
+.hero{background:var(--navy);color:var(--cream);padding:8px 0 28px}
+.hero h1{font-size:30px;line-height:1.12;margin:6px 0 10px;letter-spacing:-.01em}
+.hero p{color:#C5D2D9;margin:0 0 14px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#FF8A65}
+.ecg{display:block;width:100%;height:46px;margin:8px 0 4px}
+.ecg path{stroke:var(--cyan);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}}
+.bar{height:8px;background:rgba(255,255,255,.18);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--coral);border-radius:8px;transition:width .4s}
+.barlabel{font-size:13px;color:#C5D2D9;margin-top:6px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 14px;border-radius:12px;border:0;background:var(--coral);color:#fff;font-weight:700;text-decoration:none;cursor:pointer;text-align:center}
+.btn.ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(246,243,236,.5)}
+.btn.light{background:var(--paper);color:var(--navy);border:1.5px solid var(--line)}
+.btn.small{min-height:40px;font-size:14px;padding:8px 12px}
+main{padding:18px 0 calc(40px + env(safe-area-inset-bottom))}
+h2{font-size:22px;line-height:1.2;margin:22px 0 10px;color:var(--navy)}
+h3{font-size:18px;line-height:1.25;margin:0 0 8px;color:var(--navy)}
+.trail{list-style:none;margin:0;padding:0;position:relative}
+.trail:before{content:"";position:absolute;left:23px;top:24px;bottom:24px;width:3px;background:var(--line);border-radius:3px}
+.station{position:relative;display:flex;gap:14px;align-items:stretch;margin:0 0 12px;text-decoration:none;color:inherit}
+.dot{flex:0 0 48px;height:48px;border-radius:50%;background:var(--paper);border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy);z-index:1;font-size:17px}
+.station.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.station.started .dot{border-color:var(--coral)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;flex:1}
+.station .card h3{margin:0 0 2px;font-size:17px}
+.station .card p{margin:0;color:var(--muted);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12px;font-weight:600;background:#EAF2FA;color:var(--blue);border-radius:20px;padding:2px 9px}
+.chip.q{background:var(--badbg);color:var(--rust)}
+.chip.ok{background:var(--okbg);color:var(--ok)}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 14px}
+.block p{margin:0 0 10px}.block p:last-child{margin-bottom:0}
+.block ul{margin:0 0 10px;padding-left:20px}.block li{margin-bottom:5px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);margin-bottom:6px;display:block}
+.kicker.blue{color:var(--blue)}
+.note{background:var(--warnbg);border:1px solid #EBC774;border-radius:12px;padding:12px 14px;font-size:14px;margin:0 0 14px}
+.quote{font-style:italic;font-size:18px;color:var(--navy);border-left:4px solid var(--coral);padding:4px 0 4px 14px;margin:6px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 6px}
+th{background:var(--navy);color:var(--cream);text-align:left;padding:8px;font-weight:600}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tablewrap{overflow-x:auto;margin:0 -4px}
+label{display:block;font-size:14px;font-weight:600;color:var(--navy);margin:10px 0 4px}
+input[type=number],select{width:100%;min-height:46px;font-size:17px;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:3px solid rgba(36,181,235,.35);border-color:var(--cyan)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.out{margin-top:12px;background:var(--navy);color:var(--cream);border-radius:12px;padding:14px}
+.out .big{font-size:28px;font-weight:800;line-height:1.1;color:#fff}
+.out .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9FB1BC}
+.out p{margin:6px 0 0;color:#C5D2D9;font-size:14px}
+.outgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.seg button{flex:1 1 auto;min-height:44px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink);text-align:left}
+.seg button[aria-pressed=true]{border-color:var(--navy);background:var(--navy);color:#fff}
+.opts{display:grid;gap:8px;margin:10px 0}
+.opt{min-height:48px;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.fb{border-radius:12px;padding:12px 14px;font-size:15px;margin-top:4px}
+.fb.ok{background:var(--okbg);color:#173F22}
+.fb.bad{background:var(--badbg);color:#5A1E05}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+.qtext{font-weight:700;font-size:17px;color:var(--navy)}
+.sortitem{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;background:#fff}
+.sortitem .seg button{flex:1 1 30%;text-align:center;font-size:13px;min-height:40px;padding:6px}
+.sortitem.right{border-color:var(--ok);background:var(--okbg)}
+.sortitem.wrong{border-color:var(--bad);background:var(--badbg)}
+.links a{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.links a:last-child{border-bottom:0}
+.links a span.s{font-size:13px;color:var(--muted)}
+.links a b{color:var(--navy);font-weight:600}
+.net{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.navbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.badge{text-align:center;padding:22px 16px}
+.badge .medal{font-size:54px;line-height:1}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:24px;font-size:14px;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.small{font-size:13px;color:var(--muted)}
+footer{font-size:12px;color:var(--muted);padding:10px 0 30px;text-align:center}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:0 0 12px 40px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+@media (max-width:380px){.hero h1{font-size:26px}.actions{grid-template-columns:1fr}.outgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><div class="wrap"><p>Ative o JavaScript para usar a trilha.</p></div></noscript>
+
+<script>
+"use strict";
+/* ====================== Armazenamento seguro ====================== */
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let progress = store.get("trilha-cc-v1", {});   // { moduleId: {quiz:{score,total}, visited:true} }
+function saveProgress(){ store.set("trilha-cc-v1", progress); }
+
+/* ====================== Conteúdo ====================== */
+const PUB = t => "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(t);
+
+const MODULES = [
+{
+  id:"caso", n:1, title:"O caso e o ERAS", sub:"Seu Raimundo, a angina e o fio condutor",
+  blocks:[
+    {t:"html", html:`<span class="kicker">O paciente (caso fictício)</span>
+      <p><b>Seu Raimundo, 62 anos.</b> DAC triarterial, angina <b>CCS II</b>, FEVE 48%. Diabetes tipo 2 (HbA1c 8,4%), hipertensão, dislipidemia. Sedentário, IMC 29, mora num sobrado com dois lances de escada. Revascularização eletiva em três semanas.</p>
+      <div class="quote">“Doutora, eu só quero voltar a caminhar na orla com meus netos sem essa dor no peito.”</div>
+      <p class="small">Os números do caso são ilustrativos e coerentes entre si. Ajuste ao protocolo do seu serviço.</p>`},
+    {t:"html", html:`<span class="kicker">Classificação CCS da angina</span>
+      <p>A classificação da Canadian Cardiovascular Society gradua <b>o esforço que provoca a angina</b>. É o equivalente da NYHA, mas a NYHA mede dispneia e cansaço na insuficiência cardíaca.</p>
+      <div class="tablewrap"><table>
+      <tr><th>Classe</th><th>Quando aparece a dor</th></tr>
+      <tr><td><b>I</b></td><td>Só em esforço intenso, rápido ou prolongado.</td></tr>
+      <tr><td><b>II</b></td><td>Subir escada ou andar rápido, ladeira, após refeição, frio, estresse; ou andar mais de 2 quarteirões no plano, ou subir mais de 1 lance em ritmo normal.</td></tr>
+      <tr><td><b>III</b></td><td>Andar 1 a 2 quarteirões no plano ou subir 1 lance em ritmo normal.</td></tr>
+      <tr><td><b>IV</b></td><td>Qualquer atividade; pode ocorrer em repouso.</td></tr>
+      </table></div>`},
+    {t:"calc", id:"ccs"},
+    {t:"html", html:`<span class="kicker">ERAS Cardiac 2024</span>
+      <p>Consenso conjunto da ERAS Cardiac Society, ERAS Society e Society of Thoracic Surgeons. Entre os poucos elementos com <b>evidência de alta qualidade</b>, dois passam pela mão do fisioterapeuta: <b>ventilação mecânica protetora</b> e <b>triagem e prevenção de delirium</b>.</p>
+      <p>A pré-habilitação aparece com evidência baixa. Isso não quer dizer que não funciona: quer dizer que os estudos são heterogêneos. Para o treino muscular inspiratório, os dados são consistentes.</p>`},
+  ],
+  quiz:[
+    {q:"Seu Raimundo sente angina ao subir dois lances de escada em ritmo normal, mas não ao subir um. Qual a classe CCS?", o:["CCS I","CCS II","CCS III","CCS IV"], a:1, e:"Angina ao subir mais de um lance em ritmo normal é classe II. Na III, a dor já aparece com um lance."},
+    {q:"Quais elementos do ERAS Cardiac 2024 com evidência alta passam diretamente pela fisioterapia?", o:["Pré-habilitação e TMI","Ventilação protetora e prevenção de delirium","Extubação em 6 h e deambulação precoce","Analgesia multimodal e prevenção de FA"], a:1, e:"Ventilação protetora e triagem/prevenção de delirium têm evidência alta. Extubação precoce e deambulação têm evidência moderada."},
+    {q:"No ERAS 2024, “evidência baixa” para pré-habilitação multicomponente significa que:", o:["A pré-habilitação não funciona","Os estudos são heterogêneos e a certeza é menor","Ela é contraindicada em cirurgia eletiva","Só vale para pacientes jovens"], a:1, e:"Evidência baixa é sobre certeza, não sobre ineficácia. Para o TMI isolado, a revisão de 2024 mostra efeito consistente sobre pneumonia."}
+  ]
+},
+{
+  id:"preop", n:2, title:"Pré-habilitação", sub:"Medir a reserva e treinar em três semanas",
+  blocks:[
+    {t:"html", html:`<span class="kicker">O que medimos antes de operar</span>
+      <p>A cirurgia vai gastar a reserva do paciente. A fisioterapia mede essa reserva em quatro sistemas:</p>
+      <div class="tablewrap"><table>
+      <tr><th>Teste</th><th>Seu Raimundo</th><th>Leitura</th></tr>
+      <tr><td>PImáx</td><td>62 cmH₂O</td><td>59% do previsto</td></tr>
+      <tr><td>TC6</td><td>380 m</td><td>70% do previsto</td></tr>
+      <tr><td>Preensão palmar</td><td>26 kgf</td><td>abaixo de 27 kgf (EWGSOP2, homens): sarcopenia provável</td></tr>
+      <tr><td>SPPB</td><td>9/12</td><td>limitação moderada</td></tr>
+      </table></div>
+      <p class="small">Testes sempre monitorizados e interrompidos se houver angina. Angina instável ou lesão crítica de tronco contraindicam teste de esforço.</p>`},
+    {t:"calc", id:"sppb"},
+    {t:"calc", id:"tmi"},
+    {t:"html", html:`<span class="kicker">Treino muscular inspiratório: o essencial</span>
+      <ul>
+      <li><b>Comece em 30% da PImáx</b>, com resistor de carga linear pressórica, e progrida pelo esforço percebido.</li>
+      <li>20 a 30 min por dia, por pelo menos 2 semanas.</li>
+      <li><b>Remeça a PImáx toda semana</b> e recalcule a carga: sem isso, o treino vira subcarga.</li>
+      <li>Um resistor de orifício (fluxo-dependente) não garante a carga prescrita.</li>
+      </ul>
+      <p><b>Evidência:</b> revisão sistemática com 8 ECR e 696 pacientes (J Physiother 2024): menos complicações pulmonares (RR 0,51), menos pneumonia (RR 0,44) e 1,7 dia a menos de internação.</p>
+      <p><b>Contraponto honesto:</b> no ensaio PREHAB (n = 180), exercício + TMI não melhorou o TC6 no grupo geral; o efeito foi maior nos sarcopênicos. Selecione quem mais precisa.</p>`},
+    {t:"calc", id:"tc6"},
+    {t:"html", html:`<span class="kicker">Caminhada: metros não bastam</span>
+      <p>Distância é <b>volume</b>, não intensidade. O mesmo 1 km pode ser feito em 12 ou em 25 minutos. Prescreva <b>distância + tempo</b> (que é velocidade), e use como checagem:</p>
+      <ul>
+      <li><b>Teto:</b> abaixo do limiar de angina. Se houve dor no teste, cerca de 10 bpm abaixo da FC em que ela começou.</li>
+      <li><b>Borg</b> 11 a 13 e <b>teste da fala</b> (conversa, mas não canta).</li>
+      <li>Progrida aumentando distância e tempo juntos, mantendo a velocidade.</li>
+      </ul>
+      <p class="small">O TC6 é submáximo: não use a FC do TC6 na fórmula de Karvonen.</p>`},
+  ],
+  quiz:[
+    {q:"Qual a carga inicial de TMI usada nos ensaios pré-operatórios em cirurgia cardíaca?", o:["15% da PImáx","30% da PImáx","60% da PImáx","80% da PImáx"], a:1, e:"Os ensaios de referência começaram em 30% da PImáx, com progressão. Em coronariopata com angina, carga alta aumenta o esforço sem benefício adicional demonstrado."},
+    {q:"PImáx medida de 62 cmH₂O. Quanto é a carga inicial de 30%?", o:["≈ 12 cmH₂O","≈ 19 cmH₂O","≈ 31 cmH₂O","≈ 43 cmH₂O"], a:1, e:"62 × 0,30 ≈ 18,6, ou cerca de 19 cmH₂O."},
+    {q:"Por que não usar a FC atingida no TC6 como FC máxima em Karvonen?", o:["Porque o TC6 é um teste submáximo","Porque o TC6 superestima a FC","Porque Karvonen não vale para cardiopatas","Porque o TC6 não mede FC"], a:0, e:"O TC6 é submáximo. O que ele dá de útil para prescrever é a velocidade de caminhada."},
+    {q:"Qual prescrição de caminhada controla intensidade e volume?", o:["Caminhar 1 km por dia","Caminhar 30 minutos","Caminhar 750 m em 15 minutos, Borg 11–13","Caminhar até cansar"], a:2, e:"Distância + tempo define a velocidade (aqui 50 m/min). Borg e limiar de angina são as checagens de segurança."},
+    {q:"Preensão palmar de 26 kgf num homem indica, pelo EWGSOP2:", o:["Força normal","Sarcopenia provável","Sarcopenia grave confirmada","Fragilidade pelo fenótipo de Fried"], a:1, e:"Abaixo de 27 kgf em homens é critério de sarcopenia provável. Confirmar exige medir massa muscular."},
+    {q:"No ensaio PREHAB (2023), quem mais se beneficiou da pré-habilitação no TC6?", o:["Os pacientes mais jovens","Os sarcopênicos","Os não diabéticos","Todos igualmente"], a:1, e:"Sem diferença no grupo geral; o efeito foi maior nos sarcopênicos. A mensagem é selecionar."}
+  ]
+},
+{
+  id:"cbdf", n:3, title:"Diagnóstico pela CBDF", sub:"Da doença (CID) à função (CBDF)",
+  blocks:[
+    {t:"html", html:`<span class="kicker">O que é</span>
+      <p>A <b>Classificação Brasileira de Diagnósticos Fisioterapêuticos</b> foi instituída pelo COFFITO na Resolução 555/2022 e atualizada pela Resolução 610/2025. Segue a lógica da CIF.</p>
+      <div class="quote">O CID diz o que o paciente tem. A CBDF diz o que ele não consegue fazer, e é isso que eu trato.</div>
+      <div class="tablewrap"><table>
+      <tr><th>Categoria</th><th>O que descreve</th></tr>
+      <tr><td><b>S</b></td><td>Saúde cinético-funcional, com ou sem risco</td></tr>
+      <tr><td><b>D</b></td><td>Deficiências, por sistema (ex.: D04 respiratório, D05 cardiovascular)</td></tr>
+      <tr><td><b>M</b></td><td>Atividades de mobilidade (ex.: locomoção, transferências)</td></tr>
+      <tr><td><b>P</b></td><td>Participação (ex.: atividades recreacionais)</td></tr>
+      </table></div>`},
+    {t:"calc", id:"qual"},
+    {t:"html", html:`<span class="kicker">Por que ela orienta a decisão</span>
+      <ul>
+      <li><b>Escolhe o alvo:</b> força inspiratória com alteração moderada põe o TMI como prioridade.</li>
+      <li><b>Calibra o cuidado:</b> capacidade aeróbica moderada pede aeróbio leve a moderado, supervisionado.</li>
+      <li><b>Mede o resultado:</b> reavaliar e recodificar mostra se a conduta funcionou. A participação “caminhar na orla” vira o critério de alta do programa.</li>
+      </ul>
+      <p><b>Ela não define a dose.</b> A dose sai dos testes: velocidade do TC6, % da PImáx, teste de esforço. A CBDF norteia; os testes dosam.</p>`},
+    {t:"html", html:`<div class="note"><b>Sobre os códigos do caso.</b> Os códigos completos mostrados na aula são exemplos didáticos. Antes de usar qualquer código na prática, confira no sistema oficial da CBDF, que é a referência.</div>`},
+    {t:"links", items:[
+      {t:"Sistema CBDF (COFFITO)", s:"Consulta oficial dos códigos", u:"https://cbdf.coffito.gov.br/cbdf"},
+      {t:"Notícias e resoluções do COFFITO sobre a CBDF", s:"coffito.gov.br", u:"https://www.coffito.gov.br/nsite/?s=cbdf"},
+      {t:"Artigo: Brazilian classification of physical therapy diagnosis", s:"PubMed Central", u:"https://pmc.ncbi.nlm.nih.gov/articles/PMC11225182/"},
+      {t:"CBDF na Fisioterapia UFBA", s:"fisioterapia.ufba.br", u:"https://fisioterapia.ufba.br/classificacao-brasileira-de-diagnosticos-fisioterapeuticos-cbdf"}
+    ]}
+  ],
+  quiz:[
+    {q:"Quais são as quatro categorias da CBDF?", o:["A, B, C e D","S, D, M e P","Estrutura, função, atividade e ambiente","Leve, moderada, grave e completa"], a:1, e:"S (saúde cinético-funcional), D (deficiências), M (mobilidade) e P (participação)."},
+    {q:"TC6 a 70% do previsto corresponde a qual qualificador de capacidade aeróbica?", o:["0, sem alteração","1, leve","2, moderada","3, grave"], a:2, e:"Na escala da CIF, 51 a 75% do previsto é alteração moderada, qualificador 2."},
+    {q:"Sobre a CBDF e a prescrição de exercício, é correto dizer que:", o:["A CBDF define a dose do exercício","A CBDF norteia o alvo e a prioridade; a dose vem dos testes","A CBDF substitui o teste de esforço","A CBDF só serve para faturamento"], a:1, e:"Ela diz qual função está alterada, quanto e para onde ir. A intensidade sai dos testes."},
+    {q:"“Voltar a caminhar na orla com os netos” é registrado em qual categoria?", o:["S","D","M","P"], a:3, e:"É participação social em atividade recreacional: categoria P."}
+  ]
+},
+{
+  id:"uti", n:4, title:"Cirurgia e UTI", sub:"Herança do intraoperatório, extubar, expandir, levantar",
+  blocks:[
+    {t:"html", html:`<span class="kicker">O que o intraoperatório deixa</span>
+      <div class="tablewrap"><table>
+      <tr><th>Aconteceu</th><th>Esperar na UTI</th></tr>
+      <tr><td>Anestesia geral e CEC</td><td>Atelectasia, inflamação, queda da capacidade residual funcional</td></tr>
+      <tr><td>Esternotomia</td><td>Dor, padrão restritivo, tosse fraca</td></tr>
+      <tr><td>Mamária com pleurotomia</td><td>Mais derrame e atelectasia à esquerda</td></tr>
+      <tr><td>Drenos torácicos</td><td>Dor ao inspirar; não impedem levantar</td></tr>
+      </table></div>
+      <p><b>Na passagem de plantão, pergunte:</b> tempo de CEC, balanço hídrico, drogas vasoativas, sangramento, intercorrências, plano de extubação.</p>`},
+    {t:"calc", id:"pbw"},
+    {t:"html", html:`<span class="kicker">Extubação em até 6 horas (ERAS, evidência moderada)</span>
+      <ol class="steps">
+      <li><b>Admissão:</b> ventilação protetora, menor FiO₂ possível.</li>
+      <li><b>Checklist:</b> desperto e colaborativo, estável sem escalada de vasoativo, drenos sem sangramento ativo, aquecido, troca gasosa adequada.</li>
+      <li><b>Teste de respiração espontânea:</b> pressão de suporte mínima, 30 min, observando padrão, FC, PA e SpO₂.</li>
+      <li><b>Extubado.</b> No caso: 5 h 10 min de ventilação.</li>
+      </ol>
+      <p class="small">A palavra-chave é <b>estruturada</b>: protocolo escrito, critérios objetivos e cortes definidos pelo seu serviço.</p>`},
+    {t:"html", html:`<span class="kicker">Duas horas depois, a saturação cai</span>
+      <p>SpO₂ 91% com 3 L/min, PaO₂/FiO₂ 235, murmúrio reduzido na base esquerda, dor 6/10 ao tossir. Conduta em degraus:</p>
+      <ol class="steps">
+      <li><b>Analgesia e postura:</b> sentar e levantar; tosse com apoio esternal.</li>
+      <li><b>Pressão positiva seletiva</b> para quem tem hipoxemia: a VNI reduz atelectasia (RR 0,65) e complicações pulmonares (RR 0,67).</li>
+      <li><b>Não fazer por rotina:</b> alto fluxo profilático. Num ensaio com 1.280 pacientes de risco, não aumentou os dias vivo e em casa.</li>
+      </ol>
+      <p class="small">Piora da hipoxemia, musculatura acessória, rebaixamento ou instabilidade: chame a equipe, não insista.</p>`},
+    {t:"html", html:`<span class="kicker">Do leito ao corredor em 24 horas</span>
+      <ul>
+      <li><b>PO imediato, após extubar:</b> sentado à beira do leito, exercícios ativos, tosse assistida.</li>
+      <li><b>1º PO manhã:</b> em pé e poltrona, marcha estacionária, com drenos e monitor.</li>
+      <li><b>1º PO tarde:</b> primeiros 40 m, braços “dentro do tubo”.</li>
+      <li><b>2º PO:</b> 100 m, 2 a 3 caminhadas por dia, TMI retomado, alta da UTI.</li>
+      </ul>
+      <p>Mobilização iniciada no 1º ou 2º PO: <b>+54 m no TC6 da alta</b> (6 ECR, todos com revascularização). O ganho mais consistente é funcional; o efeito sobre o tempo de internação é inconsistente.</p>`},
+    {t:"sort", id:"alertas"}
+  ],
+  quiz:[
+    {q:"Ventilação protetora no pós-operatório usa volume corrente de:", o:["10 a 12 mL/kg de peso real","6 a 8 mL/kg de peso predito","4 mL/kg de peso real","8 a 10 mL/kg de peso predito"], a:1, e:"6 a 8 mL/kg de peso predito pela altura, com PEEP e atenção à driving pressure."},
+    {q:"A mamária esquerda foi retirada com abertura da pleura. Onde procurar atelectasia e derrame?", o:["Base direita","Ápice direito","Base esquerda","Não há lado preferencial"], a:2, e:"A pleurotomia esquerda explica por que procurar derrame e atelectasia à esquerda."},
+    {q:"Cânula nasal de alto fluxo profilática de rotina após cirurgia cardíaca em pacientes de risco:", o:["Reduziu reintubação pela metade","Não trouxe benefício no ensaio com 1.280 pacientes","Reduziu mortalidade","É recomendação classe I"], a:1, e:"No ensaio de Litton e colaboradores (2026), o alto fluxo não aumentou os dias vivo e em casa em 90 dias."},
+    {q:"Paciente com dreno torácico, estável, no 1º PO. O dreno contraindica deambular?", o:["Sim, sempre","Sim, até a retirada","Não; dreno não impede levantar e andar","Só se for dreno pleural"], a:2, e:"Dreno não é contraindicação. Sangramento ativo pelo dreno é."},
+    {q:"Mobilização iniciada no 1º ou 2º PO após revascularização trouxe, no TC6 da alta:", o:["Nenhuma diferença","Cerca de +54 m","Cerca de +200 m","Piora pela dor"], a:1, e:"Metanálise de 6 ECR (Kanejima 2020): +54 m."}
+  ]
+},
+{
+  id:"enf", n:5, title:"Enfermaria", sub:"FA no corredor, esterno e progressão diária",
+  blocks:[
+    {t:"scenario", id:"fa"},
+    {t:"html", html:`<span class="kicker">Fibrilação atrial pós-operatória</span>
+      <p>Acomete <b>20 a 40%</b> dos pacientes após cirurgia cardíaca, com pico entre o <b>2º e o 4º PO</b>. O fisioterapeuta, que faz o paciente se esforçar, costuma ser o primeiro a detectar.</p>
+      <p><b>Não é o fim da reabilitação:</b> após controle de frequência ou reversão e estabilidade hemodinâmica, a mobilização volta com monitorização e progressão mais lenta.</p>`},
+    {t:"html", html:`<span class="kicker">Esterno: proteger sem imobilizar</span>
+      <p>As precauções clássicas (não levantar mais de 2 a 5 kg, não elevar os braços por 8 a 12 semanas) vêm de estudos em cadáver e de opinião de especialistas.</p>
+      <p><b>“Keep Your Move in the Tube”:</b> para fazer força, braços junto ao tronco, como se estivesse dentro de um tubo. Sem carga, amplitude livre guiada pelo conforto. Tosse sempre com apoio esternal.</p>
+      <ul>
+      <li><b>Ensaio SMART</b> (n = 72): precauções menos restritivas, mesma função, dor e qualidade de vida.</li>
+      <li><b>Revisão de escopo 2026</b> (12 estudos, 2.853 pacientes): sem sinal de aumento de infecção, instabilidade ou dor; associação com melhor função e mais altas direto para casa.</li>
+      </ul>
+      <p><b>Paciente de risco</b> (diabetes, obesidade, DPOC com tosse, mamária bilateral): não imobilize, <b>vigie mais</b>. Clique ou estalido, dor que piora, secreção, hiperemia, febre.</p>
+      <p class="small">“Sem sinal de dano” não é o mesmo que “comprovadamente seguro”: deiscência é rara e os estudos são pequenos para esse desfecho.</p>`},
+    {t:"html", html:`<span class="kicker">A progressão de cada dia</span>
+      <div class="tablewrap"><table>
+      <tr><th>Dia</th><th>Mobilidade</th><th>Respiratório</th><th>Vigiar</th></tr>
+      <tr><td>2º PO</td><td>Corredor, 100 m, 3×/dia</td><td>TMI 30% da PImáx</td><td>Glicemia, dor</td></tr>
+      <tr><td>3º–4º PO</td><td>200–300 m, sentar e levantar</td><td>TMI, expansão em pé</td><td>Ritmo, FC, delirium</td></tr>
+      <tr><td>5º PO</td><td>Um lance de escada</td><td>TMI com progressão</td><td>Ferida e esterno</td></tr>
+      <tr><td>6º PO</td><td>TC6 pré-alta, dois lances</td><td>Reavaliar PImáx</td><td>Resposta ao esforço</td></tr>
+      </table></div>`}
+  ],
+  quiz:[
+    {q:"Qual a incidência aproximada e o pico da FA após cirurgia cardíaca?", o:["2 a 5%, no 1º PO","20 a 40%, entre o 2º e o 4º PO","60 a 80%, após a alta","Menos de 1%, no 7º PO"], a:1, e:"20 a 40%, com pico entre o 2º e o 4º dia."},
+    {q:"No corredor, FC 142 irregular, palpitação e tontura. A primeira conduta é:", o:["Terminar a caminhada devagar","Parar, sentar, monitorizar e comunicar","Pedir para respirar fundo e continuar","Encerrar a reabilitação até a alta"], a:1, e:"Parar, sentar, monitorizar ritmo, PA e SpO₂, e acionar a equipe."},
+    {q:"“Keep Your Move in the Tube” orienta que, para fazer força, o paciente:", o:["Não eleve os braços por 12 semanas","Mantenha os braços junto ao tronco","Use só um braço","Evite tossir"], a:1, e:"Esforço com os braços perto do tronco; sem carga, a amplitude é livre."},
+    {q:"Paciente diabético após esternotomia. A melhor estratégia é:", o:["Imobilizar os braços por 8 semanas","Precauções menos restritivas com vigilância maior do esterno","Proibir tosse","Adiar a mobilização até a retirada dos pontos"], a:1, e:"Risco maior pede mais vigilância, não imobilização."}
+  ]
+},
+{
+  id:"fase2", n:6, title:"Alta e Fase 2", sub:"A passagem de bastão e a prescrição",
+  blocks:[
+    {t:"html", html:`<span class="kicker">Três entregas na alta</span>
+      <ol class="steps">
+      <li><b>Um retrato funcional:</b> TC6 pré-alta de 290 m (54% do previsto). Em 360 pacientes testados por volta do 5º PO, a mediana foi 183 m.</li>
+      <li><b>Um plano escrito:</b> caminhada progressiva, TMI em casa, esterno “no tubo” e quando voltar: dor no peito, falta de ar, palpitação, febre, secreção, clique no esterno.</li>
+      <li><b>Uma data marcada:</b> a primeira consulta da fase 2 agendada antes de sair. Reabilitação após revascularização é recomendação classe I.</li>
+      </ol>`},
+    {t:"html", html:`<span class="kicker">Começar cedo</span>
+      <p>Num ensaio com 158 pacientes pós-esternotomia, começar o treino com <b>2 semanas</b> foi não inferior a esperar 6, sem diferença de segurança.</p>
+      <p>Teste de esforço <b>sempre em uso da medicação habitual</b>: o betabloqueador muda a FC de treino.</p>`},
+    {t:"calc", id:"fcr"},
+    {t:"html", html:`<span class="kicker">Prescrição FITT: 12 semanas, 36 sessões</span>
+      <div class="tablewrap"><table>
+      <tr><th>Componente</th><th>Frequência</th><th>Intensidade</th></tr>
+      <tr><td>Aeróbio</td><td>3–5×/sem</td><td>Entre os limiares ventilatórios, ou 40–80% da FC de reserva; Borg 11–14</td></tr>
+      <tr><td>Resistido</td><td>2–3×/sem</td><td>Leve a moderado, sem apneia; braços “no tubo” no início</td></tr>
+      <tr><td>Intervalado</td><td>1–2×/sem</td><td>Opcional, após adaptação</td></tr>
+      <tr><td>Inspiratório</td><td>5–7×/sem</td><td>A partir de 30% da PImáx</td></tr>
+      </table></div>
+      <p class="small">Em toda sessão: glicemia antes e depois em quem usa hipoglicemiante, PA, sintomas, FC abaixo do limiar isquêmico e esterno. Confira as faixas com a Diretriz Brasileira de Reabilitação Cardiovascular 2020.</p>`},
+    {t:"html", html:`<span class="kicker">Por que insistir</span>
+      <ul>
+      <li>Metanálise com 85 ECR e 23.430 pacientes: <b>−26% de mortalidade cardiovascular</b> e <b>−23% de hospitalizações</b>. Sem efeito sobre a mortalidade total.</li>
+      <li>Após revascularização: <b>+59 m no TC6</b> e <b>+1,9 mL/kg/min</b> de VO₂ pico.</li>
+      <li>Mundo real (6.412 pacientes): só <b>12%</b> completaram as 36 sessões.</li>
+      </ul>
+      <p><b>O maior problema da fase 2 não é a prescrição: é a porta de entrada.</b> E o fisioterapeuta hospitalar é essa porta.</p>`}
+  ],
+  quiz:[
+    {q:"Após esternotomia, iniciar o treino da fase 2 com 2 semanas, comparado a 6 semanas:", o:["Aumentou deiscências","Foi não inferior e sem diferença de segurança","Foi pior no TC6","Só funcionou em valvopatas"], a:1, e:"Ensaio de Ennis e colaboradores (2022), 158 pacientes."},
+    {q:"Na metanálise de 2023 (85 ECR), a reabilitação cardíaca reduziu:", o:["Mortalidade total","Mortalidade cardiovascular e hospitalizações","Apenas a dor torácica","Nada de forma significativa"], a:1, e:"RR 0,74 para mortalidade cardiovascular e 0,77 para hospitalizações; mortalidade total sem efeito."},
+    {q:"O teste de esforço para prescrever a fase 2 deve ser feito:", o:["Sem a medicação habitual","Em uso da medicação habitual","Só após 6 meses","Apenas em esteira"], a:1, e:"O betabloqueador muda a resposta da FC; o teste precisa refletir a condição em que ele treina."},
+    {q:"Num registro com 6.412 operados, qual fração completou as 36 sessões?", o:["12%","40%","60%","85%"], a:0, e:"Cerca de 60% iniciaram, mas só 12% completaram."},
+    {q:"A alta hospitalar está completa quando:", o:["O paciente sobe escada","Os drenos foram retirados","A fase 2 já está marcada","O TC6 passa de 400 m"], a:2, e:"Encaminhamento ativo, com data, é o que mais aumenta a adesão."}
+  ]
+}
+];
+
+const REFS = [
+  {t:"Grant MC et al. Perioperative care in cardiac surgery: joint consensus statement (ERAS Cardiac, ERAS Society, STS). Ann Thorac Surg 2024;117(4):669-689.", u:"https://doi.org/10.1016/j.athoracsur.2023.12.006"},
+  {t:"Cursino de Moura JF et al. Preoperative respiratory muscle training and pulmonary complications after cardiac surgery. J Physiother 2024;70:16-24.", u:PUB("Cursino de Moura preoperative respiratory muscle training cardiac surgery")},
+  {t:"Akowuah E et al. Randomised controlled trial of prehabilitation in elective cardiac surgery (PREHAB). Anaesthesia 2023;78(9):1120-1128.", u:PUB("Akowuah prehabilitation cardiac surgery randomised Anaesthesia 2023")},
+  {t:"Hulzebos EH et al. Preoperative intensive inspiratory muscle training to prevent postoperative pulmonary complications. JAMA 2006.", u:PUB("Hulzebos preoperative intensive inspiratory muscle training JAMA 2006")},
+  {t:"Chen X et al. Five days of intensive preoperative inspiratory muscle training in cardiac surgery. Clin Rehabil 2019.", u:PUB("Chen five days intensive preoperative inspiratory muscle training cardiac surgery")},
+  {t:"Zhou X et al. Prophylactic noninvasive respiratory support after cardiac surgery: network meta-analysis. BMC Pulm Med 2023.", u:"https://bmcpulmmed.biomedcentral.com/articles/10.1186/s12890-023-02525-1"},
+  {t:"Litton E et al. High-flow nasal oxygen therapy after cardiac surgery: randomized clinical trial. JAMA Netw Open 2026;9(4):e265447.", u:PUB("Litton high-flow nasal oxygen cardiac surgery JAMA Netw Open 2026")},
+  {t:"Kanejima Y et al. Early mobilization and physical function after cardiac surgery: meta-analysis. IJERPH 2020;17(19):7091.", u:"https://www.mdpi.com/1660-4601/17/19/7091"},
+  {t:"Hodgson CL et al. Expert consensus on safety criteria for active mobilization of mechanically ventilated adults. Crit Care 2014;18:658.", u:PUB("Hodgson expert consensus safety criteria active mobilization 2014")},
+  {t:"Katijjahbe MA et al. Standard restrictive versus modified sternal precautions (SMART trial). J Physiother 2018.", u:PUB("Katijjahbe sternal precautions SMART trial")},
+  {t:"Blakoe M et al. Impact of sternal precautions after sternotomy: scoping review. J Cardiopulm Rehabil Prev 2026.", u:"https://research.regionh.dk/da/publications/impact-of-sternal-precautions-on-clinical-and-patient-reported-ou/"},
+  {t:"Wu Y et al. Early 6-minute walk test in CABG patients during inpatient cardiac rehabilitation. Front Cardiovasc Med 2025.", u:"https://www.frontiersin.org/journals/cardiovascular-medicine/articles/10.3389/fcvm.2025.1580442/full"},
+  {t:"Ennis S et al. Early initiation of poststernotomy cardiac rehabilitation exercise training. JAMA Cardiol 2022.", u:PUB("Ennis early initiation poststernotomy cardiac rehabilitation JAMA Cardiol")},
+  {t:"McGregor G et al. High-intensity interval training in cardiac rehabilitation: multi-centre RCT. Eur J Prev Cardiol 2023;30(9):745-755.", u:PUB("McGregor high-intensity interval training cardiac rehabilitation multi-centre")},
+  {t:"Dibben GO et al. Exercise-based cardiac rehabilitation for coronary heart disease: meta-analysis. Eur Heart J 2023.", u:PUB("Dibben exercise-based cardiac rehabilitation coronary heart disease meta-analysis 2023")},
+  {t:"Miao J et al. Cardiac rehabilitation and cardiopulmonary function after CABG: meta-analysis. iScience 2023;26(12):107861.", u:PUB("cardiac rehabilitation cardiopulmonary function coronary artery bypass grafting iScience 2023")},
+  {t:"Bauer TM et al. Cardiac rehabilitation reduces 2-year mortality after CABG. Ann Thorac Surg 2023.", u:PUB("Bauer cardiac rehabilitation 2-year mortality coronary artery bypass grafting")},
+  {t:"Carvalho T et al. Diretriz Brasileira de Reabilitação Cardiovascular 2020. Arq Bras Cardiol 2020;114(5):943-987.", u:"https://abccardiol.org/en/article/brazilian-cardiovascular-rehabilitation-guideline-2020"},
+  {t:"COFFITO. Classificação Brasileira de Diagnósticos Fisioterapêuticos. Resoluções 555/2022 e 610/2025.", u:"https://cbdf.coffito.gov.br/cbdf"}
+];
+
+/* ====================== Utilitários ====================== */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num = v => { const n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : NaN; };
+const fmt = (n, d=0) => n.toLocaleString("pt-BR", {minimumFractionDigits:d, maximumFractionDigits:d});
+function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2200); }
+function doneCount(){ return MODULES.filter(m => progress[m.id] && progress[m.id].quiz).length; }
+
+/* ====================== Calculadoras ====================== */
+const CALCS = {
+  ccs: {
+    title:"Demonstração: qual a classe CCS?",
+    html:`<p>Escolha o menor esforço que já provoca angina.</p>
+      <div class="seg" id="ccsSeg">
+        <button data-v="1" aria-pressed="false">Só esforço intenso, rápido ou prolongado</button>
+        <button data-v="2" aria-pressed="false">Mais de 1 lance de escada ou mais de 2 quarteirões, em ritmo normal</button>
+        <button data-v="3" aria-pressed="false">1 lance de escada ou 1 a 2 quarteirões</button>
+        <button data-v="4" aria-pressed="false">Qualquer atividade, ou em repouso</button>
+      </div><div id="ccsOut"></div>`,
+    init(root){
+      const desc={1:"Sem limitação nas atividades comuns.",2:"Limitação leve. É o Seu Raimundo: os dois lances do sobrado viram a barreira.",3:"Limitação acentuada das atividades comuns.",4:"Incapaz de qualquer atividade sem desconforto."};
+      root.querySelectorAll("#ccsSeg button").forEach(b=>b.addEventListener("click",()=>{
+        root.querySelectorAll("#ccsSeg button").forEach(x=>x.setAttribute("aria-pressed","false"));
+        b.setAttribute("aria-pressed","true");
+        const v=b.dataset.v;
+        $("#ccsOut",root).innerHTML=`<div class="out"><div class="lbl">Classe</div><div class="big">CCS ${["","I","II","III","IV"][v]}</div><p>${desc[v]}</p></div>`;
+      }));
+    }
+  },
+  sppb: {
+    title:"Calculadora: SPPB",
+    html:`<p class="small">Cortes da marcha para percurso de <b>4 metros</b>. Para 3 m, as faixas são outras.</p>
+      <label for="sEq">1. Equilíbrio</label>
+      <select id="sEq">
+        <option value="0">Pés juntos &lt; 10 s (0)</option>
+        <option value="1">Pés juntos 10 s, semi-tandem &lt; 10 s (1)</option>
+        <option value="2">Semi-tandem 10 s, tandem &lt; 3 s (2)</option>
+        <option value="3" selected>Tandem 3 a 9,99 s (3)</option>
+        <option value="4">Tandem 10 s (4)</option>
+      </select>
+      <label for="sGait">2. Marcha 4 m: tempo em segundos (0 = não consegue)</label>
+      <input id="sGait" type="number" inputmode="decimal" step="0.01" value="5.5">
+      <label for="sChair">3. Sentar e levantar 5 vezes: segundos (0 = não consegue)</label>
+      <input id="sChair" type="number" inputmode="decimal" step="0.01" value="12.5">
+      <div id="sOut"></div>`,
+    init(root){
+      const run=()=>{
+        const eq=+$("#sEq",root).value, g=num($("#sGait",root).value), c=num($("#sChair",root).value);
+        let gp=0; if(g>0){ gp = g<4.82?4 : g<=6.20?3 : g<=8.70?2 : 1; }
+        let cp=0; if(c>0 && c<=60){ cp = c<=11.19?4 : c<=13.69?3 : c<=16.69?2 : 1; }
+        const tot=eq+gp+cp;
+        const interp = tot<=3?"Incapacidade ou desempenho muito ruim": tot<=6?"Desempenho baixo": tot<=9?"Desempenho moderado (limitação moderada)":"Desempenho bom";
+        const vel = g>0 ? `Velocidade de marcha: ${fmt(4/g,2)} m/s.` : "";
+        $("#sOut",root).innerHTML=`<div class="out"><div class="outgrid"><div><div class="lbl">Total</div><div class="big">${tot}/12</div></div><div><div class="lbl">Parciais</div><p style="margin-top:2px">Equilíbrio ${eq} · Marcha ${gp} · Cadeira ${cp}</p></div></div><p><b style="color:#fff">${interp}.</b> ${vel}</p></div>`;
+      };
+      root.querySelectorAll("input,select").forEach(i=>i.addEventListener("input",run)); run();
+    }
+  },
+  tmi: {
+    title:"Calculadora: PImáx e carga do TMI",
+    html:`<div class="row2"><div><label for="pMed">PImáx medida</label><input id="pMed" type="number" inputmode="decimal" value="62"></div>
+      <div><label for="pPrev">PImáx prevista</label><input id="pPrev" type="number" inputmode="decimal" value="105.7"></div></div>
+      <p class="small" style="margin-top:8px">Valores em cmH₂O. Use a equação de referência adotada no seu serviço para a PImáx prevista.</p>
+      <div id="pOut"></div>`,
+    init(root){
+      const run=()=>{
+        const m=num($("#pMed",root).value), p=num($("#pPrev",root).value);
+        if(!(m>0)){ $("#pOut",root).innerHTML=""; return; }
+        const pct = p>0 ? m/p*100 : NaN;
+        const q = isFinite(pct) ? qualifier(pct) : null;
+        $("#pOut",root).innerHTML=`<div class="out"><div class="outgrid">
+          <div><div class="lbl">Carga inicial (30%)</div><div class="big">${fmt(m*0.3,0)} cmH₂O</div></div>
+          <div><div class="lbl">% do previsto</div><div class="big">${isFinite(pct)?fmt(pct,0)+"%":"—"}</div></div></div>
+          <p>${q?`Qualificador CBDF de força inspiratória: <b style="color:#fff">${q.n}, ${q.t}</b>. `:""}Remeça a PImáx toda semana e recalcule: se ela subir para ${fmt(m*1.25,0)}, os 30% passam a ${fmt(m*1.25*0.3,0)} cmH₂O.</p></div>`;
+      };
+      root.querySelectorAll("input").forEach(i=>i.addEventListener("input",run)); run();
+    }
+  },
+  tc6: {
+    title:"Calculadora: caminhada a partir do TC6",
+    html:`<label for="tDist">Distância no TC6 (metros)</label><input id="tDist" type="number" inputmode="decimal" value="380">
+      <label for="tCorr">Comprimento do corredor ou trecho de referência (metros)</label><input id="tCorr" type="number" inputmode="decimal" value="50">
+      <div id="tOut"></div>`,
+    init(root){
+      const run=()=>{
+        const d=num($("#tDist",root).value), c=num($("#tCorr",root).value);
+        if(!(d>0)){ $("#tOut",root).innerHTML=""; return; }
+        const v=d/6, lo=v*0.7, hi=v*0.8, mid=v*0.75;
+        const rows=[15,20,30].map(min=>`<tr><td>${min} min</td><td>${fmt(Math.round(lo*min/50)*50)}–${fmt(Math.round(hi*min/50)*50)} m</td></tr>`).join("");
+        const laps = c>0 ? `Num trecho de ${fmt(c)} m, cerca de <b style="color:#fff">${fmt(mid/c,1)} volta(s) por minuto</b>.` : "";
+        $("#tOut",root).innerHTML=`<div class="out"><div class="outgrid">
+          <div><div class="lbl">Velocidade no TC6</div><div class="big">${fmt(v,0)} m/min</div><p>${fmt(v*0.06,1)} km/h</p></div>
+          <div><div class="lbl">Faixa de treino 70–80%</div><div class="big">${fmt(lo,0)}–${fmt(hi,0)}</div><p>m/min</p></div></div>
+          <p>${laps}</p></div>
+          <div class="tablewrap" style="margin-top:10px"><table><tr><th>Tempo</th><th>Distância prescrita</th></tr>${rows}</table></div>
+          <p class="small">Ponto de partida, não teto. Quem manda é o limiar de angina, o Borg 11–13 e o teste da fala. A faixa de 70–80% é uma referência prática; confira com o protocolo do seu serviço.</p>`;
+      };
+      root.querySelectorAll("input").forEach(i=>i.addEventListener("input",run)); run();
+    }
+  },
+  qual: {
+    title:"Calculadora: % do previsto → qualificador",
+    html:`<label for="qPct">Resultado em % do previsto</label><input id="qPct" type="number" inputmode="decimal" value="70">
+      <div id="qOut"></div>
+      <div class="tablewrap" style="margin-top:10px"><table>
+      <tr><th>Qualificador</th><th>Alteração</th><th>% do previsto</th></tr>
+      <tr><td>0</td><td>Sem alteração</td><td>≥ 96%</td></tr>
+      <tr><td>1</td><td>Leve</td><td>76–95%</td></tr>
+      <tr><td>2</td><td>Moderada</td><td>51–75%</td></tr>
+      <tr><td>3</td><td>Grave</td><td>5–50%</td></tr>
+      <tr><td>4</td><td>Completa</td><td>&lt; 5%</td></tr></table></div>
+      <p class="small">Faixas da CIF. Para regras específicas de cada caracterizador, consulte o sistema oficial da CBDF.</p>`,
+    init(root){
+      const run=()=>{ const p=num($("#qPct",root).value); if(!isFinite(p)){ $("#qOut",root).innerHTML=""; return; }
+        const q=qualifier(p); $("#qOut",root).innerHTML=`<div class="out"><div class="lbl">Qualificador</div><div class="big">${q.n} · ${q.t}</div><p>Exemplos do caso: TC6 a 70% → capacidade aeróbica 2; PImáx a 59% → força inspiratória 2.</p></div>`; };
+      $("#qPct",root).addEventListener("input",run); run();
+    }
+  },
+  pbw: {
+    title:"Calculadora: volume corrente pelo peso predito",
+    html:`<div class="row2"><div><label for="bSex">Sexo</label><select id="bSex"><option value="m">Masculino</option><option value="f">Feminino</option></select></div>
+      <div><label for="bH">Altura (cm)</label><input id="bH" type="number" inputmode="decimal" value="170"></div></div>
+      <div id="bOut"></div>
+      <p class="small" style="margin-top:8px">Peso predito: homens 50 + 0,91 × (altura − 152,4); mulheres 45,5 + 0,91 × (altura − 152,4). O pulmão tem o tamanho da altura, não do peso.</p>`,
+    init(root){
+      const run=()=>{ const h=num($("#bH",root).value); if(!(h>100)){ $("#bOut",root).innerHTML=""; return; }
+        const w=($("#bSex",root).value==="m"?50:45.5)+0.91*(h-152.4);
+        $("#bOut",root).innerHTML=`<div class="out"><div class="outgrid"><div><div class="lbl">Peso predito</div><div class="big">${fmt(w,1)} kg</div></div>
+        <div><div class="lbl">VC 6–8 mL/kg</div><div class="big">${fmt(w*6,0)}–${fmt(w*8,0)}</div><p>mL</p></div></div></div>`; };
+      root.querySelectorAll("input,select").forEach(i=>i.addEventListener("input",run)); run();
+    }
+  },
+  fcr: {
+    title:"Calculadora: zona pela FC de reserva",
+    html:`<p class="small">Use a FC pico do <b>teste de esforço em uso da medicação</b>, nunca a do TC6.</p>
+      <div class="row2"><div><label for="fRep">FC de repouso (bpm)</label><input id="fRep" type="number" inputmode="numeric" value="68"></div>
+      <div><label for="fPico">FC pico no teste (bpm)</label><input id="fPico" type="number" inputmode="numeric" value="128"></div></div>
+      <label for="fIsq">FC no limiar isquêmico, se houve (bpm, opcional)</label><input id="fIsq" type="number" inputmode="numeric" placeholder="ex.: 118">
+      <div id="fOut"></div>`,
+    init(root){
+      const run=()=>{ const r=num($("#fRep",root).value), p=num($("#fPico",root).value), i=num($("#fIsq",root).value);
+        if(!(r>0&&p>r)){ $("#fOut",root).innerHTML=""; return; }
+        const z=x=>Math.round(r+(p-r)*x);
+        let lo=z(.4), hi=z(.8), cap="";
+        if(i>0){ const c=i-10; if(hi>c){ hi=c; cap=`Teto ajustado para 10 bpm abaixo do limiar isquêmico (${c} bpm).`; } else cap=`O teto do limiar isquêmico (${c} bpm) está acima da faixa.`; }
+        $("#fOut",root).innerHTML=`<div class="out"><div class="lbl">Faixa de treino aeróbio</div><div class="big">${lo}–${Math.max(lo,hi)} bpm</div>
+        <p>40% = ${z(.4)} · 60% = ${z(.6)} · 80% = ${z(.8)} bpm. ${cap} Combine com Borg 11–14.</p></div>`; };
+      root.querySelectorAll("input").forEach(i=>i.addEventListener("input",run)); run();
+    }
+  }
+};
+function qualifier(p){
+  if(p>=96) return {n:0,t:"sem alteração"};
+  if(p>=76) return {n:1,t:"leve"};
+  if(p>=51) return {n:2,t:"moderada"};
+  if(p>=5)  return {n:3,t:"grave"};
+  return {n:4,t:"completa"};
+}
+
+/* ====================== Jogo de classificação ====================== */
+const SORTS = {
+  alertas: {
+    title:"Desafio: adiar, parar ou seguir?",
+    intro:"Para cada situação na mobilização, escolha o que você faz. Depois toque em Conferir.",
+    cats:["Adiar","Parar","Pode seguir"],
+    items:[
+      ["PAM abaixo de 65 mmHg ou vasoativo em ascensão",0],
+      ["Dor torácica, palidez ou sudorese durante a marcha",1],
+      ["Dreno torácico sem sangramento ativo",2],
+      ["Sangramento ativo pelos drenos",0],
+      ["FC que ficou irregular durante a caminhada",1],
+      ["Dose baixa e estável de vasoativo",2],
+      ["SpO₂ abaixo de 90% apesar do oxigênio",0],
+      ["Estalido ou movimento no esterno",1],
+      ["Dor mal controlada (barreira modificável: tratar e seguir)",2]
+    ],
+    foot:"Referência conceitual: consenso de Hodgson 2014 (semáforo). Os valores de corte devem seguir o protocolo do seu serviço."
+  }
+};
+
+/* ====================== Cenário ramificado ====================== */
+const SCENARIOS = {
+  fa: {
+    title:"Cenário: 3º PO, o pulso mudou no corredor",
+    lead:"Aos 80 m de caminhada, Seu Raimundo relata palpitação e tontura leve. FC 142 bpm, pulso irregular, PA 104 × 62 mmHg, SpO₂ 94% em ar ambiente. O que você faz?",
+    opts:[
+      ["Reduz o ritmo e termina a volta para não perder o treino", false, "Não. Sintomático, com FC alta e ritmo irregular, o exercício para agora."],
+      ["Para, senta o paciente, fica com ele, monitoriza ritmo, PA e SpO₂ e aciona a equipe", true, "Isso. Parar, sentar, monitorizar, comunicar. O exercício fica suspenso até o controle de frequência e ritmo."],
+      ["Leva de volta ao leito caminhando e registra no fim do turno", false, "Não. Caminhar mais é esforço extra, e a comunicação precisa ser imediata."],
+      ["Suspende a reabilitação até a alta hospitalar", false, "Exagero. Após controle e estabilidade, a mobilização volta monitorizada e mais lenta. No caso, ele voltou a caminhar no 4º PO."]
+    ]
+  }
+};
+
+/* ====================== Telas ====================== */
+const app = $("#app");
+function header(title, back){
+  const pct = Math.round(doneCount()/MODULES.length*100);
+  return `<header class="top"><div class="wrap">${back?`<button class="back" aria-label="Voltar" onclick="location.hash='#/'">‹</button>`:""}<div class="title">${esc(title)}</div><div class="prog">${doneCount()}/${MODULES.length} estações</div></div></header>`;
+}
+
+function renderHome(){
+  const d=doneCount(), pct=Math.round(d/MODULES.length*100);
+  const stations = MODULES.map(m=>{
+    const p=progress[m.id]||{}; const cls = p.quiz?"done":(p.visited?"started":"");
+    const chip = p.quiz ? `<span class="chip ok">Quiz: ${p.quiz.score}/${p.quiz.total}</span>` : `<span class="chip q">${m.quiz.length} perguntas</span>`;
+    const n = (m.blocks.filter(b=>b.t==="calc"||b.t==="sort"||b.t==="scenario").length);
+    return `<li><a class="station ${cls}" href="#/m/${m.id}"><div class="dot">${p.quiz?"✓":m.n}</div><div class="card"><h3>${esc(m.title)}</h3><p>${esc(m.sub)}</p><div class="chips">${n?`<span class="chip">${n} demonstraç${n>1?"ões":"ão"}</span>`:""}${chip}</div></div></a></li>`;
+  }).join("");
+  app.innerHTML = `
+  <section class="hero"><div class="wrap" style="padding-top:calc(18px + env(safe-area-inset-top))">
+    <span class="eyebrow">Trilha de aprendizagem</span>
+    <h1>Da admissão à alta, e além</h1>
+    <p>Fisioterapia no paciente cardíaco cirúrgico: tudo o que não coube em 30 minutos.</p>
+    <svg class="ecg" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 H120 l10 -8 l10 8 h20 l6 6 l10 -30 l12 40 l8 -16 h30 q18 -14 36 0 h40 H330 l10 -8 l10 8 h20 l6 6 l10 -30 l12 40 l8 -16 h30 q18 -14 36 0 h40 H600"/></svg>
+    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <div class="barlabel">${d===MODULES.length?"Trilha concluída!":`${d} de ${MODULES.length} estações concluídas`}</div>
+    <div class="actions">
+      <a class="btn" href="aula.pdf" target="_blank" rel="noopener">⬇ PDF da aula</a>
+      <a class="btn ghost" href="#/sobre">Como usar offline</a>
+    </div>
+  </div></section>
+  <main><div class="wrap">
+    <h2>As seis estações</h2>
+    <ul class="trail">${stations}</ul>
+    ${d===MODULES.length?`<div class="block badge"><div class="medal" aria-hidden="true">🫀</div><h3>Trilha completa</h3><p>Você passou pelas seis estações do Seu Raimundo. Agora ele voltou a caminhar na orla com os netos.</p></div>`:""}
+    <div class="block links"><span class="kicker blue">Acesso rápido</span>
+      <a href="#/refs"><b>Referências da aula</b><span class="s">${REFS.length} fontes ›</span></a>
+      <a href="https://cbdf.coffito.gov.br/cbdf" target="_blank" rel="noopener"><b>Sistema oficial da CBDF</b><span class="net">internet</span></a>
+    </div>
+    <p class="small">Conteúdo educativo para profissionais de saúde. O caso é fictício e os números são ilustrativos. Siga sempre o protocolo da sua instituição.</p>
+  </div></main>
+  <footer>Prof.ª Dr.ª Séres Costa de Souza Nascimento · 4º Congresso Internacional de Fisioterapia Cardiorrespiratória e Metabólica · 2026</footer>`;
+  window.scrollTo(0,0);
+}
+
+function renderModule(id){
+  const m = MODULES.find(x=>x.id===id); if(!m) return renderHome();
+  progress[m.id] = Object.assign({}, progress[m.id], {visited:true}); saveProgress();
+  const idx = MODULES.indexOf(m);
+  let html = header(`${m.n}. ${m.title}`, true) + `<main><div class="wrap"><h2 style="margin-top:6px">${esc(m.title)}</h2><p class="small" style="margin-top:-4px">${esc(m.sub)}</p>`;
+  m.blocks.forEach((b,i)=>{
+    if(b.t==="html") html += `<div class="block">${b.html}</div>`;
+    if(b.t==="calc") html += `<div class="block" data-calc="${b.id}"><span class="kicker blue">Demonstração</span><h3>${CALCS[b.id].title}</h3>${CALCS[b.id].html}</div>`;
+    if(b.t==="links") html += `<div class="block links"><span class="kicker blue">Links diretos</span>${b.items.map(l=>`<a href="${l.u}" target="_blank" rel="noopener"><span><b>${esc(l.t)}</b><br><span class="s">${esc(l.s)}</span></span><span class="net">internet</span></a>`).join("")}</div>`;
+    if(b.t==="sort") html += `<div class="block" data-sort="${b.id}"></div>`;
+    if(b.t==="scenario") html += `<div class="block" data-scen="${b.id}"></div>`;
+  });
+  html += `<div class="block" id="quiz"></div>`;
+  html += `<div class="navbtns">${idx>0?`<a class="btn light small" href="#/m/${MODULES[idx-1].id}">‹ ${esc(MODULES[idx-1].title)}</a>`:`<a class="btn light small" href="#/">‹ Início</a>`}${idx<MODULES.length-1?`<a class="btn small" href="#/m/${MODULES[idx+1].id}">${esc(MODULES[idx+1].title)} ›</a>`:`<a class="btn small" href="#/">Concluir ›</a>`}</div>`;
+  html += `</div></main>`;
+  app.innerHTML = html;
+  app.querySelectorAll("[data-calc]").forEach(el=>CALCS[el.dataset.calc].init(el));
+  app.querySelectorAll("[data-sort]").forEach(el=>mountSort(el, SORTS[el.dataset.sort]));
+  app.querySelectorAll("[data-scen]").forEach(el=>mountScenario(el, SCENARIOS[el.dataset.scen]));
+  mountQuiz($("#quiz"), m);
+  window.scrollTo(0,0);
+}
+
+function mountSort(el, s){
+  const choice = s.items.map(()=>null);
+  el.innerHTML = `<span class="kicker blue">Demonstração</span><h3>${s.title}</h3><p>${s.intro}</p>` +
+    s.items.map((it,i)=>`<div class="sortitem" data-i="${i}"><div>${esc(it[0])}</div><div class="seg">${s.cats.map((c,j)=>`<button data-j="${j}" aria-pressed="false">${c}</button>`).join("")}</div></div>`).join("") +
+    `<button class="btn" style="width:100%;margin-top:6px" id="sortCheck">Conferir</button><div id="sortRes" style="margin-top:10px"></div><p class="small" style="margin-top:8px">${s.foot}</p>`;
+  el.querySelectorAll(".sortitem").forEach(row=>{
+    const i=+row.dataset.i;
+    row.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+      row.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));
+      b.setAttribute("aria-pressed","true"); choice[i]=+b.dataset.j; row.classList.remove("right","wrong");
+    }));
+  });
+  $("#sortCheck",el).addEventListener("click",()=>{
+    if(choice.some(c=>c===null)){ toast("Classifique todas as situações"); return; }
+    let ok=0;
+    el.querySelectorAll(".sortitem").forEach(row=>{ const i=+row.dataset.i; const r=choice[i]===s.items[i][1]; if(r) ok++; row.classList.toggle("right",r); row.classList.toggle("wrong",!r);
+      if(!r && !row.querySelector(".fix")){ const f=document.createElement("div"); f.className="small fix"; f.textContent="Resposta: "+s.cats[s.items[i][1]]; row.appendChild(f);} });
+    $("#sortRes",el).innerHTML=`<div class="fb ${ok===s.items.length?"ok":"bad"}"><b>${ok} de ${s.items.length} certas.</b> ${ok===s.items.length?"Vigiar é intervir.":"Revise as marcadas em vermelho."}</div>`;
+  });
+}
+
+function mountScenario(el, s){
+  el.innerHTML = `<span class="kicker blue">Demonstração · decisão clínica</span><h3>${s.title}</h3><p>${s.lead}</p><div class="opts">${s.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o[0])}</button>`).join("")}</div><div class="scfb"></div>`;
+  el.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    const o=s.opts[+b.dataset.i];
+    el.querySelectorAll(".opt").forEach(x=>x.classList.remove("right","wrong"));
+    b.classList.add(o[1]?"right":"wrong");
+    $(".scfb",el).innerHTML=`<div class="fb ${o[1]?"ok":"bad"}">${o[2]}</div>`;
+  }));
+}
+
+function mountQuiz(el, m){
+  let i=0, score=0;
+  const prev = progress[m.id] && progress[m.id].quiz;
+  function intro(){
+    el.innerHTML = `<span class="kicker">Quiz da estação</span><h3>${m.quiz.length} perguntas</h3>${prev?`<p>Seu último resultado: <b>${prev.score}/${prev.total}</b>.</p>`:"<p>Teste o que ficou desta estação.</p>"}<button class="btn" style="width:100%" id="qStart">${prev?"Refazer o quiz":"Começar o quiz"}</button>`;
+    $("#qStart",el).addEventListener("click",()=>{ i=0; score=0; show(); });
+  }
+  function show(){
+    const q=m.quiz[i];
+    el.innerHTML = `<div class="qhead"><span>Pergunta ${i+1} de ${m.quiz.length}</span><span>${score} acerto${score===1?"":"s"}</span></div>
+      <div class="qtext">${esc(q.q)}</div><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}</div><div class="qfb"></div>`;
+    el.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+      const j=+b.dataset.j, r=j===q.a; if(r) score++;
+      el.querySelectorAll(".opt").forEach((x,k)=>{ x.disabled=true; if(k===q.a) x.classList.add("right"); });
+      if(!r) b.classList.add("wrong");
+      $(".qfb",el).innerHTML=`<div class="fb ${r?"ok":"bad"}"><b>${r?"Isso.":"Não exatamente."}</b> ${esc(q.e)}</div>
+        <button class="btn" style="width:100%;margin-top:10px" id="qNext">${i<m.quiz.length-1?"Próxima":"Ver resultado"}</button>`;
+      $("#qNext",el).addEventListener("click",()=>{ i++; if(i<m.quiz.length) show(); else finish(); });
+      $("#qNext",el).focus({preventScroll:true});
+    }));
+  }
+  function finish(){
+    progress[m.id] = Object.assign({}, progress[m.id], {quiz:{score, total:m.quiz.length}}); saveProgress();
+    const all = doneCount()===MODULES.length;
+    el.innerHTML = `<div class="badge"><div class="medal" aria-hidden="true">${score===m.quiz.length?"🏅":"✓"}</div><h3>${score} de ${m.quiz.length}</h3><p>${score===m.quiz.length?"Estação dominada.":"Estação concluída. Releia os pontos que errou e refaça quando quiser."}</p>${all?"<p><b>Você completou a trilha inteira!</b></p>":""}<button class="btn light" style="width:100%" id="qAgain">Refazer</button></div>`;
+    $("#qAgain",el).addEventListener("click",()=>{ i=0; score=0; show(); });
+    const t=$(".top .prog"); if(t) t.textContent=`${doneCount()}/${MODULES.length} estações`;
+  }
+  intro();
+}
+
+function renderRefs(){
+  app.innerHTML = header("Referências", true) + `<main><div class="wrap"><h2 style="margin-top:6px">Referências da aula</h2>
+  <p class="small">Os links abrem a fonte ou uma busca no PubMed e precisam de internet.</p>
+  <div class="block links">${REFS.map(r=>`<a href="${r.u}" target="_blank" rel="noopener"><span>${esc(r.t)}</span><span class="net">internet</span></a>`).join("")}</div>
+  <a class="btn light" href="#/">‹ Voltar à trilha</a></div></main>`;
+  window.scrollTo(0,0);
+}
+
+function renderAbout(){
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  app.innerHTML = header("Como usar offline", true) + `<main><div class="wrap"><h2 style="margin-top:6px">Leve a trilha no bolso</h2>
+  <div class="block"><span class="kicker">Funciona sem internet</span>
+    <p>Depois que você abre esta página uma vez com internet, a trilha, as demonstrações, os quizzes e o PDF da aula ficam guardados no seu celular e funcionam offline.</p>
+    <p class="small">Só os links externos (CBDF, PubMed) precisam de conexão.</p></div>
+  <div class="block"><span class="kicker">Instale na tela inicial</span>
+    ${ios?`<ol class="steps"><li>No Safari, toque em <b>Compartilhar</b> (quadrado com seta).</li><li>Escolha <b>Adicionar à Tela de Início</b>.</li><li>Toque em <b>Adicionar</b>.</li></ol>`:
+    `<ol class="steps"><li>No Chrome, toque nos <b>três pontinhos</b>.</li><li>Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li><li>Confirme.</li></ol>`}
+    <button class="btn" style="width:100%;display:none" id="installBtn">Instalar agora</button></div>
+  <div class="block"><span class="kicker">Seu progresso</span><p>Fica salvo só neste aparelho.</p><button class="btn light" style="width:100%" id="resetBtn">Recomeçar a trilha</button></div>
+  <a class="btn light" href="#/">‹ Voltar à trilha</a></div></main>`;
+  if(deferredPrompt){ const b=$("#installBtn"); b.style.display="flex"; b.addEventListener("click", async()=>{ deferredPrompt.prompt(); deferredPrompt=null; b.style.display="none"; }); }
+  $("#resetBtn").addEventListener("click",()=>{ progress={}; saveProgress(); toast("Progresso apagado"); });
+  window.scrollTo(0,0);
+}
+
+let deferredPrompt=null;
+window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredPrompt=e; });
+
+function route(){
+  const h = location.hash || "#/";
+  if(h.startsWith("#/m/")) return renderModule(h.slice(4));
+  if(h==="#/refs") return renderRefs();
+  if(h==="#/sobre") return renderAbout();
+  renderHome();
+}
+window.addEventListener("hashchange", route);
+route();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
+</script>
+</body>
+</html>
